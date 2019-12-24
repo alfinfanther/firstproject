@@ -10,3 +10,7 @@ logger = get_task_logger(__name__)
 @shared_task
 def send_email():    
     logger.info("email berhasil di kirim")
+
+@shared_task
+def broadcast_email():
+    logger.info("news letter has send")

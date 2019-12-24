@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 import os
 import environ
 import os
+from celery.schedules import crontab
 
 env = environ.Env()
 
@@ -136,3 +137,10 @@ STATIC_URL = '/static/'
 
 REDIS_URL = env('BROKER_URL', default='redis://localhost:6379')
 CELERY_BROKER_URL = env('BROKER_URL', default='redis://localhost:6379')
+
+CELERY_BEAT_SCHEDULE = {
+    'broadcast_email': {
+        'task': 'schedules.task.broadcast_email',
+        'schedule': crontab(hour=7, minute=30, day_of_week='monday') 
+    },
+}
